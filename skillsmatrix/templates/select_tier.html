@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Select Your Account Tier</h1>
+
+    <!-- Add a description of each account tier -->
+    <div class="tiers">
+        <div class="tier-card">
+            <h2>Free Tier</h2>
+            <p>Track your own skills and improvement with basic access to the platform.</p>
+            <a href="{% url 'signup' 'free' %}" class="btn">Sign Up for Free Tier</a>
+        </div>
+
+        <div class="tier-card">
+            <h2>Startup Tier</h2>
+            <p>For small teams (1-10 employees), gain insights and track skills within your team.</p>
+            <a href="{% url 'signup' 'startup' %}" class="btn">Sign Up for Startup Tier</a>
+        </div>
+
+        <div class="tier-card">
+            <h2>Growth Tier</h2>
+            <p>For growing teams (11-50 employees), gain access to more features for team management.</p>
+            <a href="{% url 'signup' 'growth' %}" class="btn">Sign Up for Growth Tier</a>
+        </div>
+
+        <div class="tier-card">
+            <h2>Business Tier</h2>
+            <p>For larger teams (51-200 employees), full feature access to manage your team's skills.</p>
+            <a href="{% url 'signup' 'business' %}" class="btn">Sign Up for Business Tier</a>
+        </div>
+
+        <div class="tier-card">
+            <h2>Enterprise Tier</h2>
+            <p>For enterprise-scale organizations, custom features, and dedicated resources.</p>
+            <a href="{% url 'signup' 'enterprise' %}" class="btn">Sign Up for Enterprise Tier</a>
+        </div>
+    </div>
+
+{% endblock %}

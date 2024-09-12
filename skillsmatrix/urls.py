@@ -28,5 +28,8 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),  # signup URL
     path('dashboard/', views.dashboard, name='dashboard'),  # dashboard URL
     path('', views.home, name='home'),  # home view
+    path('signup/<str:tier>/', views.signup, name='signup'),
+    path('select-tier/', views.select_tier, name='select_tier'),
+
 ]
 
