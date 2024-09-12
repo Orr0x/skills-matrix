@@ -1,0 +1,18 @@
+<nav>
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+  
+      {% if user.is_authenticated %}
+        <li>
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+          </form>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+  
