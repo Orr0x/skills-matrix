@@ -25,7 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # Django admin URL
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),  # login URL
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),  # logout URL
-    path('signup/', views.signup, name='signup'),  # signup URL
     path('dashboard/', views.dashboard, name='dashboard'),  # dashboard URL
     path('', views.home, name='home'),  # home view
     path('signup/<str:tier>/', views.signup, name='signup'),

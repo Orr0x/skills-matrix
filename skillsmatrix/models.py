@@ -46,6 +46,18 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+    # Method to check if the number of teams exceeds the limit based on the tier
+    def team_limit_reached(self):
+        # Example tier-based logic
+        tier_limits = {
+            'free': 1,
+            'startup': 5,
+            'growth': 10,
+            'business': 20,
+        }
+        user_tier = self.owner.extendeduser.account_tier
+        return self.owner.owned_teams.count() >= tier_limits.get(user_tier, float('inf'))  # Enterprise has no limit
+
 # Team Members Table
 class TeamMember(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
@@ -55,6 +67,18 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return f"{self.user.username} in {self.team.name}"
+
+    # Add logic to ensure the team doesn't exceed its tier's member limit
+    def clean(self):
+        team_members_count = TeamMember.objects.filter(team=self.team).count()
+        tier_limits = {
+            'free': 1,
+            'startup': 10,
+            'growth': 20,
+            'business': 50,
+        }
+        if team_members_count >= tier_limits.get(self.team.owner.extendeduser.account_tier, float('inf')):
+            raise ValueError("Team member limit reached for this tier.")
 
 # Skills Table
 class Skill(models.Model):
