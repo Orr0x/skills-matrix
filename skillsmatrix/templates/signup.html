@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Sign Up</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    
+    <!-- Username (Optional) -->
+    <div class="form-group">
+        <label for="id_username">Username (Optional):</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+    </div>
+
+    <!-- Email (Required) -->
+    <div class="form-group">
+        <label for="id_email">Email (Required):</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+        <label for="id_password1">Password:</label>
+        {{ form.password1 }}
+        {{ form.password1.errors }}
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="form-group">
+        <label for="id_password2">Confirm Password:</label>
+        {{ form.password2 }}
+        {{ form.password2.errors }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+{% endblock %}
