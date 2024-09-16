@@ -16,7 +16,7 @@ def signup(request, tier):
                 account_tier=tier,
                 is_admin=True  # Automatically make the account creator an admin
             )
-            login(request, user)  # Log the user in after signup
+            login(request, user, backend='skillsmatrix.backends.EmailBackend')  # Log the user in after signup
             return redirect('dashboard')
     else:
         form = CustomUserCreationForm()
@@ -36,20 +36,12 @@ def select_tier(request):
 
 def login_view(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)  # Use your email-based form
-        if form.is_valid():
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            
-            # Authenticate user based on email and password
-            user = authenticate(request, email=email, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('dashboard')  # Redirect to dashboard after successful login
-            else:
-                form.add_error(None, 'Invalid login credentials')
-
-    else:
-        form = CustomUserCreationForm()
-
-    return render(request, 'login.html', {'form': form})
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user, backend='skillsmatrix.backends.EmailBackend')
+            return redirect('dashboard')  # Adjust as needed for your routes
+        else:
+            return render(request, 'login.html', {'error': 'Invalid credentials'})
+    return render(request, 'login.html')
